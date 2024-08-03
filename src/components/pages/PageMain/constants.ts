@@ -17,6 +17,7 @@ export const TESTIMONIALS = [
     { author: 'mo', href: 'https://mo.rijndael.cc', text: 'okay okay, i will write a review for you please don\'t be offended' },
     { author: 'svpra', text: 'i like to write all sorts of cute phrases on other people\'s websites when nobody asks about it. meow.' },
     { author: 'toil', href: 'https://toil.cc', text: 'i like cute anime girls (oops it\'s you) <3' },
+    { author: 'jsopn', href: 'https://jsopn.com', text: 'barks at me in js' },
 ]
 
 export const SUBLINKS = [
