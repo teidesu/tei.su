@@ -3,7 +3,7 @@ import { env } from '~/backend/env'
 
 export async function umamiFetchStats(page: string, startAt: number) {
     if (import.meta.env.DEV) {
-        return Promise.resolve({ uniques: { value: 1337 } })
+        return Promise.resolve({ visitors: { value: 1337 } })
     }
 
     const res = await fetch(`${env.UMAMI_HOST}/api/websites/${env.UMAMI_SITE_ID}/stats?${new URLSearchParams({

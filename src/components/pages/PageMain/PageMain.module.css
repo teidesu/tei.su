@@ -66,14 +66,18 @@
 }
 
 .lastSeenTrigger::before {
-    /* spaces are a crutch to avoid table resizing lol */
-    content: '  (click to expand)';
+    content: '(click to expand)';
     @mixin font-xs;
     margin-left: 1em;
     color: var(--text-secondary);
+    white-space: nowrap;
 
     @media (--tablet) {
-        content: '  (expand)';
+        content: '(expand)';
+    }
+
+    @media (--mobile) {
+        content: '<';
     }
 }
 
@@ -83,11 +87,17 @@
     @media (--tablet) {
         content: '(collapse)';
     }
+
+    @media (--mobile) {
+        content: 'v';
+    }
 }
 
 .lastSeenLinkWrap {
     display: flex;
     align-items: center;
+    overflow: hidden;
+    max-width: 100%;
 
     @media (--tablet) {
         flex-direction: column;
@@ -99,6 +109,9 @@
 .lastSeenLinkWrapInner {
     display: flex;
     align-items: center;
+    width: min-content;
+    overflow: hidden;
+    max-width: 100%;
 }
 
 .lastSeenLink {
@@ -106,7 +119,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    display: inline-block;
 
     @media (--tablet) {
         max-width: 300px;
@@ -115,12 +127,14 @@
 
 .lastSeenSuffix {
     @mixin font-xs;
+    white-space: nowrap;
 }
 
 .lastSeenSource {
     @mixin font-xs;
     color: var(--text-secondary);
     margin-left: 8px;
+    white-space: nowrap;
 
     @media (--tablet) {
         margin-left: 0;

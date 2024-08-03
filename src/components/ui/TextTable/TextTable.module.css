@@ -1,6 +1,14 @@
 .table {
     border-spacing: 0;
     line-height: 18px;
+
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    overflow: hidden;
+
+    @media (--tablet) {
+        grid-template-columns: 1fr 2fr;
+    }
 }
 
 .name {
@@ -12,13 +20,13 @@
 
 .value {
     padding: 0;
+    overflow: hidden;
 }
 
 .normal {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: pre;
-    display: block;
 }
 
 .normal .value {

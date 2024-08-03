@@ -19,15 +19,15 @@ export function TextTable(props: TextTableProps) {
         const value = item.value()
         if (!value) return null
         return (
-            <tr class={css.line}>
-                <td class={css.name}>{item.name}</td>
-                <td class={css.value}>{item.value()}</td>
-            </tr>
+            <>
+                <div class={css.name}>{item.name}</div>
+                <div class={css.value}>{item.value()}</div>
+            </>
         )
     }).filter(Boolean)
 
     return (
-        <table
+        <div
             class={clsx(
                 css.table,
                 props.wrap ? css.wrap : css.normal,
@@ -35,6 +35,6 @@ export function TextTable(props: TextTableProps) {
             )}
         >
             {rows()}
-        </table>
+        </div>
     )
 }
