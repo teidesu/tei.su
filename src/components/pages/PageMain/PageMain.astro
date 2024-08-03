@@ -1,0 +1,21 @@
+---
+import DefaultLayout from '~/layouts/DefaultLayout/DefaultLayout.astro'
+import { RandomWord } from '~/components/interactive/RandomWord/RandomWord'
+import { umamiLogThisVisit } from '~/backend/service/umami'
+
+import { PageMain as PageMainSolid } from './PageMain'
+import { PARTTIME_VARIANTS } from './constants'
+import { fetchMainPageData } from './data'
+import Shoutbox from './Shoutbox/Shoutbox.astro'
+
+umamiLogThisVisit(Astro.request)
+
+const data = await fetchMainPageData()
+---
+
+<DefaultLayout>
+    <PageMainSolid {data}>
+        <RandomWord slot="part-time-words" choices={PARTTIME_VARIANTS} client:idle />
+        <Shoutbox slot="shoutbox" />
+    </PageMainSolid>
+</DefaultLayout>

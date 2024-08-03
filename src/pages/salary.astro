@@ -1,0 +1,170 @@
+---
+import { SectionTitle } from '~/components/ui/SectionTitle/SectionTitle'
+import DefaultLayout from '~/layouts/DefaultLayout/DefaultLayout.astro'
+import { AVAILABLE_CURRENCIES, convertCurrencySync, fetchConvertRates } from '~/backend/service/currency'
+import { Link } from '~/components/ui/Link/Link'
+
+let currentCurrency = new URL(Astro.request.url).searchParams.get('currency')
+if (!currentCurrency || !AVAILABLE_CURRENCIES.includes(currentCurrency)) {
+    currentCurrency = 'RUB'
+}
+
+let currentPeriod = new URL(Astro.request.url).searchParams.get('period')
+if (!currentPeriod || (currentPeriod !== 'year' && currentPeriod !== 'hour')) {
+    currentPeriod = 'month'
+}
+
+await fetchConvertRates()
+
+function convert(from: string, amount: number, period: 'hour' | 'month' | 'year') {
+    if (period !== currentPeriod) {
+        // for hours we assume there are 160 (4 weeks * 40 hours) working hours
+
+        if (currentPeriod === 'hour') {
+            amount = period === 'month' ? amount / 160 : amount / 1920
+        }
+
+        if (currentPeriod === 'month') {
+            amount = period === 'hour' ? amount * 160 : amount / 12
+        }
+
+        if (currentPeriod === 'year') {
+            amount = period === 'hour' ? amount * 1920 : amount * 12
+        }
+    }
+    const converted = convertCurrencySync(from, currentCurrency!, amount)
+
+    return `${converted.toLocaleString('en-US', {
+        style: 'currency',
+        currency: currentCurrency!,
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+    })}/${currentPeriod}`
+}
+
+---
+
+<DefaultLayout>
+    <section>
+        <SectionTitle>salary transparency</SectionTitle>
+
+        ...as seen on Xe's site, as well as a bunch of other people.
+        <br /><br />
+        i believe being secretive about your salary is wrong.<br />
+        the only way we can survive in this capitalist society is by making sure everyone
+        is paid fairly, and openly sharing the amount of money you make is one way we can ensure that.
+        <br /><br />
+        i will display this page more prominently once there are a bit more entries in the table,
+        as it's a bit empty here right now :D
+    </section>
+
+    <section>
+        <SectionTitle>salary history</SectionTitle>
+
+        <small>
+            currency:
+            {(() => {
+                const res: unknown[] = []
+
+                for (const currency of AVAILABLE_CURRENCIES) {
+                    if (res.length) res.push(' / ')
+
+                    if (currency === currentCurrency) {
+                        res.push(
+                            <b>{currency.toLowerCase()}</b>,
+                        )
+                    } else {
+                        res.push(
+                            <Link class="currency" href={`/salary?currency=${currency}&period=${currentPeriod}`}>{currency.toLowerCase()}</Link>,
+                        )
+                    }
+                }
+
+                return res
+            })()}
+            {' | '}
+            period:
+            {(() => {
+                const res: unknown[] = []
+
+                for (const period of ['hour', 'month', 'year']) {
+                    if (res.length) res.push(' / ')
+
+                    if (period === currentPeriod) {
+                        res.push(
+                            <b>{period}</b>,
+                        )
+                    } else {
+                        res.push(
+                            <Link class="currency" href={`/salary?currency=${currentCurrency}&period=${period}`}>{period}</Link>,
+                        )
+                    }
+                }
+
+                return res
+            })()}
+        </small>
+
+        <div class="table-wrap">
+            <table class="table">
+                <thead>
+                    <th>position</th>
+                    <th>company</th>
+                    <th>start</th>
+                    <th>end</th>
+                    <th>salary</th>
+                    <th>leave reason</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>interface developer</td>
+                        <td>🇷🇺 yandex</td>
+                        <td class="nowrap">10-2023</td>
+                        <td class="nowrap"></td>
+                        <td class="nowrap">{convert('RUB', 250_000, 'month')}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>junior interface developer</td>
+                        <td>🇷🇺 yandex</td>
+                        <td class="nowrap">11-2022</td>
+                        <td class="nowrap">10-2023</td>
+                        <td class="nowrap">{convert('RUB', 120_000, 'month')}</td>
+                        <td>promoted</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <b>note:</b>
+        all salaries are listed excluding any applicable regional tax,
+        and do not include any bonuses or stock options benefits
+    </section>
+</DefaultLayout>
+
+<style>
+@import '../components/shared.css';
+
+.table-wrap {
+    overflow: auto;
+    margin-block: 12px;
+}
+
+.table {
+    border-collapse: collapse;
+
+}
+
+.table th, .table td {
+    border: 1px solid var(--control-outline);
+    padding: 4px 8px;
+
+    @media (--tablet) {
+        padding: 2px 4px;
+    }
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+</style>

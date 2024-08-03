@@ -1,0 +1,45 @@
+{
+    "name": "tei.su",
+    "type": "module",
+    "version": "0.0.1",
+    "packageManager": "pnpm@9.5.0+sha512.140036830124618d624a2187b50d04289d5a087f326c9edfc0ccd733d76c4f52c3a313d4fc148794a2a9d81553016004e6742e8cf850670268a7387fc220c903",
+    "scripts": {
+        "dev": "astro dev",
+        "start": "astro dev",
+        "build": "astro check && astro build",
+        "preview": "astro preview",
+        "start:prod": "drizzle-kit migrate && node dist/server/entry.mjs",
+        "astro": "astro"
+    },
+    "dependencies": {
+        "@astrojs/check": "^0.9.1",
+        "@astrojs/node": "^8.3.2",
+        "@astrojs/solid-js": "^4.4.0",
+        "@mtcute/dispatcher": "^0.16.0",
+        "@mtcute/node": "^0.16.3",
+        "@tanstack/solid-query": "^5.51.21",
+        "astro": "^4.12.3",
+        "astro-loading-indicator": "^0.5.0",
+        "better-sqlite3": "^11.1.2",
+        "clsx": "^2.1.1",
+        "date-fns": "^3.6.0",
+        "dotenv": "^16.4.5",
+        "drizzle-kit": "^0.23.1",
+        "drizzle-orm": "^0.32.1",
+        "solid-js": "^1.8.19",
+        "typescript": "^5.5.4",
+        "zod": "^3.23.8",
+        "zod-validation-error": "^3.3.1"
+    },
+    "devDependencies": {
+        "@antfu/eslint-config": "^2.24.0",
+        "@types/better-sqlite3": "^7.6.11",
+        "@types/node": "^22.0.2",
+        "eslint-plugin-astro": "^1.2.3",
+        "eslint-plugin-solid": "0.14",
+        "postcss-custom-media": "^10.0.8",
+        "postcss-import": "^16.1.0",
+        "postcss-mixins": "^10.0.1",
+        "postcss-nesting": "^12.1.5"
+    }
+}

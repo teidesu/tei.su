@@ -1,0 +1,10 @@
+.comment {
+    color: var(--text-secondary);
+    position: relative;
+
+    &:before {
+        content: '// ';
+        position: absolute;
+        left: -2em;
+    }
+}

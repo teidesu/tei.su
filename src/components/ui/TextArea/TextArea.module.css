@@ -1,0 +1,39 @@
+@import '../../shared.css';
+
+.box {
+    border: 1px solid var(--control-outline);
+    background: var(--control-bg);
+    border-radius: 4px;
+    color: var(--text-primary);
+    min-height: 4em;
+    resize: none;
+    padding: 8px;
+    transition: background 0.2s;
+    @mixin font-sm;
+
+    &::placeholder {
+        color: var(--text-secondary);
+        font-style: italic;
+    }
+
+    &:hover:not(:focus):not([disabled]) {
+        cursor: pointer;
+        background: var(--bg-hover-alt);
+    }
+
+    &:focus {
+        border: 1px solid var(--text-primary);
+        outline: 1px solid var(--text-primary);
+        background: var(--bg-active);
+    }
+
+    &[disabled] {
+        cursor: not-allowed;
+        background: var(--control-bg-disabled);
+        border-color: var(--text-disabled);
+    }
+
+    &[disabled]::placeholder {
+        color: var(--text-disabled);
+    }
+}

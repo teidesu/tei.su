@@ -1,0 +1,22 @@
+<!-- Random Turkish Identification Number Generator -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <p id="tc"></p>
+
+    <script type="text/javascript">
+        var a = "" + Math.floor(900000001 * Math.random() + 1e8),
+            b = a.split("").map(function (t) {
+                return parseInt(t, 10)
+            }),
+        c = b[0] + b[2] + b[4] + b[6] + b[8],
+        d = b[1] + b[3] + b[5] + b[7],
+        e = (7 * c - d) % 10;
+
+        document.getElementById("tc").textContent = a + ("" + e) + ("" + (d + c + e) % 10)
+    </script>
+</body>
+</html>

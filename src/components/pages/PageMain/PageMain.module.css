@@ -1,0 +1,128 @@
+@import url('../../shared.css');
+
+.comment {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    margin-left: 48px;
+}
+
+.commentInline {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    margin-left: 2em;
+}
+
+.testimonial {
+    margin-bottom: 4px;
+}
+
+.favColor {
+    background: #be15dc;
+    border: 1px solid #ccc;
+    display: inline-block;
+    height: 10px;
+    margin-bottom: 2px;
+    vertical-align: middle;
+    width: 10px;
+}
+
+.webring {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    @mixin font-xs;
+}
+
+.lastSeen summary {
+    position: relative;
+    list-style: none;
+    cursor: pointer;
+    border-radius: 4px;
+
+    &:hover {
+        background: var(--control-bg-hover);
+    }
+
+    /* prevent text selection on 2/3-ple click */
+    &:active {
+        user-select: none;
+    }
+}
+
+.lastSeenItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.lastSeenItem + .lastSeenItem {
+    margin-top: 4px;
+}
+
+.lastSeen[open] {
+    margin-bottom: 4px;
+}
+
+.lastSeenTrigger::before {
+    /* spaces are a crutch to avoid table resizing lol */
+    content: '  (click to expand)';
+    @mixin font-xs;
+    margin-left: 1em;
+    color: var(--text-secondary);
+
+    @media (--tablet) {
+        content: '  (expand)';
+    }
+}
+
+.lastSeen[open] .lastSeenTrigger::before {
+    content: '(click to collapse)';
+
+    @media (--tablet) {
+        content: '(collapse)';
+    }
+}
+
+.lastSeenLinkWrap {
+    display: flex;
+    align-items: center;
+
+    @media (--tablet) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: start;
+    }
+}
+
+.lastSeenLinkWrapInner {
+    display: flex;
+    align-items: center;
+}
+
+.lastSeenLink {
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+
+    @media (--tablet) {
+        max-width: 300px;
+    }
+}
+
+.lastSeenSuffix {
+    @mixin font-xs;
+}
+
+.lastSeenSource {
+    @mixin font-xs;
+    color: var(--text-secondary);
+    margin-left: 8px;
+
+    @media (--tablet) {
+        margin-left: 0;
+    }
+}

@@ -1,0 +1,22 @@
+@custom-media --mobile (max-width: 480px);
+@custom-media --tablet (max-width: 720px);
+
+@define-mixin font-2xs {
+    font-size: 10px;
+    line-height: 12px;
+}
+
+@define-mixin font-xs {
+    font-size: 12px;
+    line-height: 14px;
+}
+
+@define-mixin font-sm {
+    font-size: 14px;
+    line-height: 16px;
+}
+
+@define-mixin font-md {
+    font-size: 16px;
+    line-height: 20px;
+}

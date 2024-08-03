@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>spring rofl</title>
+<script src="https://cdn.jsdelivr.net/npm/rebound@0.1.0/dist/rebound.js"></script>
+<style>
+.thingy {
+    width: 100px;
+    height: 100px;
+    background: red;
+    margin: 10px;
+    display: inline-block;
+    overflow: hidden;
+}
+.thingy.plain.active {
+    max-height: 100px;
+}
+.thingy.plain {
+    max-height: 0;
+    transition: max-height 0.25s ease-out;
+}
+</style>
+</head>
+<body>
+<button id="btn">toggle</button>
+<div style="height: 120px; background: lightblue">
+    <div id="plain" class="plain thingy active"></div>
+    <div id="fancy" class="thingy" style="max-height: 100px;"></div>
+</div>
+<script>
+var plain = document.getElementById('plain')
+
+var fancy = document.getElementById('fancy')
+var fancyActive = true
+var springSystem = new rebound.SpringSystem();
+var spring = springSystem.createSpring(95, 13);
+
+spring.addListener({
+  onSpringUpdate: function(spring) {
+    var val = spring.getCurrentValue();
+    val = rebound.MathUtil
+                 .mapValueInRange(val, 0, 1, 100, 0);
+    fancy.style.maxHeight = val + 'px';
+  }
+});
+
+document.getElementById('btn').addEventListener('click', function () {
+    plain.classList.toggle('active')
+    
+    spring.setEndValue(fancyActive + 0)
+    fancyActive = !fancyActive
+})
+
+</script>
+</body>
+</html>

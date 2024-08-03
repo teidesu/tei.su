@@ -1,0 +1,18 @@
+---
+import { fetchShouts } from '~/backend/service/shoutbox'
+import { getRequestIp } from '~/backend/utils/request'
+
+import { Shoutbox as ShoutboxSolid } from './Shoutbox'
+
+const url = new URL(Astro.request.url)
+let page = Number(url.searchParams.get('shouts_page'))
+if (Number.isNaN(page)) page = 0
+
+const data = fetchShouts(page, getRequestIp(Astro))
+---
+
+<ShoutboxSolid
+    client:idle
+    initPage={page}
+    initPageData={data}
+/>

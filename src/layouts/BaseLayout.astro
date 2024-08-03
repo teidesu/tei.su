@@ -1,0 +1,97 @@
+---
+import { ViewTransitions } from 'astro:transitions'
+import LoadingIndicator from 'astro-loading-indicator/component'
+
+import cherry from '~/assets/cherry-blossom_1f338.png'
+
+export interface Props {
+    title?: string
+    icon?: string
+    og?: Record<string, string>
+}
+
+const { title, og, icon } = Astro.props
+
+const defaultOgTags = {
+    description: '🌸 alina aka teidesu.&#10;js/ts developer, part-time anime girl.',
+    image: 'https://tei.su/ava320.jpg',
+    title: 'teidesu.js',
+    type: 'profile',
+}
+
+const finalOg = { ...defaultOgTags, ...og }
+---
+
+<!doctype html>
+<html lang="en" transition:animate="none">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Astro description" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="generator" content={Astro.generator} />
+        {Object.entries(finalOg).map(([key, value]) => (
+            <meta content={value} property={`og:${key}`} />
+        ))}
+        <link href={icon ?? cherry.src} rel="icon" />
+        <title>{title ?? finalOg.title}</title>
+        <ViewTransitions transition:name="slide" />
+        <LoadingIndicator color="var(--text-primary)" />
+    </head>
+    <body>
+        <slot />
+    </body>
+</html>
+
+<style is:global>
+@import '../components/shared.css';
+
+:root {
+    --bg: #fffcff;
+    --text-accent: #5e72be;
+    --text-primary: #661461;
+    --text-secondary: #a58fa4;
+    --text-disabled: #c8c8c8;
+    --control-bg: #fffcff;
+    --control-bg-hover: #fceffc;
+    --control-bg-hover-alt: #fffeff;
+    --control-bg-active: #ffffff;
+    --control-bg-disabled: #f5f3f7;
+    --control-outline: #a58fa4;
+    --font-family-monospace: Menlo, Monaco, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #1f1a1d;
+        --text-accent: #877eb0;
+        --text-primary: #d387a4;
+        --text-secondary: #7c6d80;
+        --text-disabled: #757575;
+        --control-bg: #2b2128;
+        --control-bg-hover: #422933;
+        --control-bg-hover-alt: #211a20;
+        --control-bg-active: #1a1518;
+        --control-outline: #7b5060;
+        --control-bg-disabled: #2a2a2a;
+    }
+}
+
+* {
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline-color: var(--text-primary)
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text-primary);
+    font-family: var(--font-family-monospace);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin: 0;
+    padding: 0;
+    @mixin font-sm;
+}
+</style>

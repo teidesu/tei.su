@@ -1,0 +1,12 @@
+.choice {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    text-decoration: underline dotted;
+    transition: opacity 200ms, transform 200ms;
+
+    /* prevent text selection on 2/3-ple click */
+    &:active {
+        user-select: none;
+    }
+}

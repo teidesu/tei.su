@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="text/html; charset=utf8" http-equiv="content-type" />
+    <title>OAuth Blank</title>
+</head>
+<body>
+Please, <b>do not copy</b> data from the address bar or the field below to third-party services. This way you may
+<b>lose</b> your data and/or account.<br />
+Your token: <br />
+<textarea id="token" readonly>JavaScript is not available</textarea>
+<script>
+var q = location.search.match(/[\?&](?:access_)?token=(.*?)(?:&|$)/)
+    q1 = location.hash.match(/[#&](?:access_)?token=(.*?)(?:&|$)/),
+    i = document.getElementById('token')
+i.value = q ? decodeURIComponent(q[1]) : q1 ? decodeURIComponent(q1[1]) : 'Token not found'
+i.onfocus = i.select
+</script>
+<style>
+#token { min-width: 480px; min-height: 200px; }
+</style>
+</body>
+</html>

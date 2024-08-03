@@ -1,0 +1,4 @@
+# i don't want this file to be in the repo as it *will* be crawled by github,
+# and i don't want people to be able to reverse-search up me by my crypto wallets
+# that's pretty much the main reason i do this obfuscation in the first place
+data.json

@@ -1,0 +1,67 @@
+---
+import { Link } from '../../components/ui/Link/Link'
+import BaseLayout, { type Props } from '../BaseLayout.astro'
+
+import Header from './Header.astro'
+---
+
+<BaseLayout {...Astro.props}>
+    <div class="app">
+        <div class="content">
+            <Header />
+            <slot />
+            <footer class="footer">
+                <div>
+                    &lt;3 teidesu
+                    {' / '}
+                    last updated
+                    {' '}
+                    {import.meta.env.VITE_BUILD_DATE}
+                    {' / '}
+                    <Link href="//github.com/teidesu/tei.su" target="_blank">
+                        source code
+                    </Link>
+                </div>
+                <div>
+                    hosted at
+                    <Link href="//stupid.fish" target="_blank">stupid.fish</Link>{' '}
+                    technologies
+                </div>
+            </footer>
+        </div>
+    </div>
+</BaseLayout>
+
+<style>
+@import '../../components/shared.css';
+
+.app {
+    display: flex;
+    justify-content: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    overflow: hidden;
+    width: 900px;
+    padding: 24px;
+
+    @media (max-width: 900px) {
+        width: 720px;
+    }
+    @media (--tablet) {
+        width: 100%;
+    }
+}
+
+.footer {
+    border-top: 1px solid var(--text-secondary);
+    padding-top: 8px;
+    margin-inline: 16;
+    text-align: center;
+    color: var(--text-secondary);
+    @mixin font-2xs;
+}
+</style>

@@ -1,0 +1,41 @@
+.input {
+    display: none;
+}
+
+.label {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+
+    &:active {
+        user-select: none;
+    }
+}
+
+.box {
+    width: 1em;
+    height: 1em;
+    background: var(--control-bg);
+    border: 1px solid var(--control-outline);
+    border-radius: 4px;
+    position: relative;
+    transition: background 0.2s;
+
+    &:hover {
+        background: var(--control-bg-hover);
+    }
+}
+
+.input:checked + .label .box::before {
+    content: '';
+    display: 'block';
+    width: 8px;
+    height: 8px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}

@@ -1,0 +1,35 @@
+.table {
+    border-spacing: 0;
+    line-height: 18px;
+}
+
+.name {
+    white-space: nowrap;
+    padding: 0;
+    padding-right: 2em;
+    vertical-align: text-top;
+}
+
+.value {
+    padding: 0;
+}
+
+.normal {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: pre;
+    display: block;
+}
+
+.normal .value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wrap {
+    white-space: pre-wrap;
+}
+
+.fill {
+    width: 100%;
+}

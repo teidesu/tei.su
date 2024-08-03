@@ -1,0 +1,86 @@
+---
+import karin from '~/assets/karin.gif'
+import { Link } from '~/components/ui/Link/Link'
+
+const PAGES = [
+    { name: 'hewwo', path: '/' },
+    { name: 'donate', path: ['/donate', '/$'] },
+]
+---
+<header class="header">
+    <img
+        aria-hidden="true"
+        class="gif"
+        src={karin.src}
+        transition:persist
+    />
+    {(() => {
+        const elements = []
+
+        for (const page of PAGES) {
+            if (elements.length > 0) {
+                elements.push(
+                    <span class="delimiter"> / </span>,
+                )
+            }
+
+            let isActive
+            if (Array.isArray(page.path)) {
+                isActive = page.path.includes(Astro.url.pathname)
+            } else {
+                isActive = Astro.url.pathname === page.path
+            }
+
+            if (isActive) {
+                elements.push(
+                    <span class="active">{page.name}</span>,
+                )
+            } else {
+                const href = Array.isArray(page.path) ? page.path[0] : page.path
+
+                elements.push(
+                    <Link href={href}>
+                        {page.name}
+                    </Link>,
+                )
+            }
+        }
+
+        return elements
+    })()}
+</header>
+<style>
+.header {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    position: relative;
+}
+
+.gif {
+    height: 64px;
+    width: 64px;
+
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    @media (prefers-color-scheme: dark) {
+        filter: brightness(0.9);
+    }
+    @media (prefers-reduced-motion: reduce) {
+        display: none;
+    }
+}
+
+.active {
+    font-weight: bold;
+}
+
+.delimiter {
+    color: var(--text-secondary);
+    user-select: none
+}
+
+</style>
