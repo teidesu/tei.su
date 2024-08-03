@@ -36,6 +36,7 @@ const finalOg = { ...defaultOgTags, ...og }
         <title>{title ?? finalOg.title}</title>
         <ViewTransitions transition:name="slide" />
         <LoadingIndicator color="var(--text-primary)" />
+        <slot name="head" />
     </head>
     <body>
         <slot />

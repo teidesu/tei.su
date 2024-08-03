@@ -6,6 +6,7 @@ import Header from './Header.astro'
 ---
 
 <BaseLayout {...Astro.props}>
+    <slot name="head" slot="head" />
     <div class="app">
         <div class="content">
             <Header />

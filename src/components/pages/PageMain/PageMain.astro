@@ -14,6 +14,9 @@ const data = await fetchMainPageData()
 ---
 
 <DefaultLayout>
+    <Fragment slot="head">
+        <link rel="me" href="https://very.stupid.fish/@teidesu" />
+    </Fragment>
     <PageMainSolid {data}>
         <RandomWord slot="part-time-words" choices={PARTTIME_VARIANTS} client:idle />
         <Shoutbox slot="shoutbox" />
