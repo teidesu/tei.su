@@ -18,6 +18,7 @@ export const env = zodValidateSync(
         FAKE_DEEPL_SECRET: z.string(),
         MK_WEBHOOK_SECRET: z.string(),
         QBT_WEBHOOK_SECRET: z.string(),
+        CSRF_SECRET: z.string(),
     }),
     process.env,
 )

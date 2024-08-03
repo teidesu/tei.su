@@ -24,6 +24,8 @@ async function fetchShouts(page: number): Promise<ShoutsData> {
 function ShoutboxInner(props: {
     initPage: number
     initPageData: ShoutsData
+    shoutError?: string
+    csrf: string
 }) {
     // eslint-disable-next-line solid/reactivity
     const [page, setPage] = createSignal(props.initPage)
@@ -89,7 +91,7 @@ function ShoutboxInner(props: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                // _csrf: shouts.data?.csrf,
+                _csrf: props.csrf,
                 message: (form.elements.namedItem('message') as HTMLInputElement).value,
                 private: isPrivate ? '' : undefined,
             }),
@@ -124,7 +126,7 @@ function ShoutboxInner(props: {
             </TextComment>
 
             <form action="/api/shoutbox" class={css.form} method="post" ref={form}>
-                {/* <input type="hidden" name="_csrf" value={shouts.data.csrf} /> */}
+                <input type="hidden" name="_csrf" value={props.csrf} />
                 <div class={css.formInput}>
                     <TextArea
                         disabled={sending()}
@@ -132,8 +134,7 @@ function ShoutboxInner(props: {
                         grow
                         maxRows={5}
                         name="message"
-                        // placeholder={initData.shoutError || 'let the void hear you'}
-                        placeholder="let the void hear you"
+                        placeholder={props.shoutError || 'let the void hear you'}
                         required
                     />
 

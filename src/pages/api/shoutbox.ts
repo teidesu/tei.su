@@ -3,9 +3,11 @@ import { z } from 'zod'
 import { fromError } from 'zod-validation-error'
 
 import { createShout, fetchShouts } from '~/backend/service/shoutbox'
-import { getRequestIp } from '../../backend/utils/request'
+import { getRequestIp } from '~/backend/utils/request'
+import { verifyCsrfToken } from '~/backend/utils/csrf'
 
 const schema = z.object({
+    _csrf: z.string(),
     message: z.string(),
     private: z.literal('').optional(),
 })
@@ -33,8 +35,21 @@ export const POST: APIRoute = async (ctx) => {
         })
     }
 
+    const ip = getRequestIp(ctx)
+
+    if (!verifyCsrfToken(ip, body.data._csrf)) {
+        return new Response(JSON.stringify({
+            error: 'csrf token is invalid',
+        }), {
+            status: 400,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+    }
+
     const result = await createShout({
-        fromIp: getRequestIp(ctx),
+        fromIp: ip,
         private: body.data.private === '',
         text: body.data.message,
     })

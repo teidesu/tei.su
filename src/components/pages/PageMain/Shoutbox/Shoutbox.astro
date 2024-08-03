@@ -1,6 +1,7 @@
 ---
 import { fetchShouts } from '~/backend/service/shoutbox'
 import { getRequestIp } from '~/backend/utils/request'
+import { getCsrfToken } from '~/backend/utils/csrf'
 
 import { Shoutbox as ShoutboxSolid } from './Shoutbox'
 
@@ -8,11 +9,17 @@ const url = new URL(Astro.request.url)
 let page = Number(url.searchParams.get('shouts_page'))
 if (Number.isNaN(page)) page = 0
 
-const data = fetchShouts(page, getRequestIp(Astro))
+const shoutError = url.searchParams.get('shout_error') ?? undefined
+
+const ip = getRequestIp(Astro)
+const data = fetchShouts(page, ip)
+const csrf = getCsrfToken(ip)
 ---
 
 <ShoutboxSolid
     client:idle
+    csrf={csrf}
+    shoutError={shoutError}
     initPage={page}
     initPageData={data}
 />
