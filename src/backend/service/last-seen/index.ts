@@ -41,7 +41,7 @@ export async function fetchLastSeen() {
         res.push({
             source: 'fedi',
             sourceLink: 'https://very.stupid.fish/@teidesu',
-            time: new Date(fediData.updatedAt).getTime(),
+            time: new Date(fediData.updatedAt ?? fediData.createdAt).getTime(),
             text: fediData.text?.slice(0, 40) || '[no text]',
             link: `https://very.stupid.fish/notes/${fediData.id}`,
         })

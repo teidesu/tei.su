@@ -19,7 +19,7 @@ const BODY = {
 const schema = z.object({
     id: z.string(),
     createdAt: z.string(),
-    updatedAt: z.string(),
+    updatedAt: z.string().nullable().optional(),
     text: z.nullable(z.string()),
 })
 
