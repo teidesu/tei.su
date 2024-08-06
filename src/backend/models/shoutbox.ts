@@ -10,6 +10,7 @@ export const shouts = sqliteTable('shouts', {
     pending: integer('pending', { mode: 'boolean' }).notNull().default(true),
     text: text('text'),
     createdAt: text('created_at').notNull().default(sql`(CURRENT_TIMESTAMP)`),
+    reply: text('reply'),
 })
 
 export const shoutsBans = sqliteTable('shouts_bans', {

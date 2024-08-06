@@ -15,6 +15,13 @@
       "when": 1722973085867,
       "tag": "0001_sharp_luckman",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1722975470474,
+      "tag": "0002_neat_firedrake",
+      "breakpoints": true
     }
   ]
 }

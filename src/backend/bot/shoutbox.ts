@@ -3,7 +3,7 @@ import { html } from '@mtcute/node'
 import parseDuration from 'parse-duration'
 
 import { env } from '../env'
-import { approveShout, banShouts, declineShout, deleteBySerial, unbanShouts } from '../service/shoutbox'
+import { answerBySerial, approveShout, banShouts, declineShout, deleteBySerial, unbanShouts } from '../service/shoutbox'
 
 export const ShoutboxAction = new CallbackDataBuilder('shoutbox', 'id', 'action')
 
@@ -12,9 +12,9 @@ const dp = Dispatcher.child()
 dp.onCallbackQuery(ShoutboxAction.filter({ action: 'approve' }), async (ctx) => {
     if (ctx.chat.id !== env.TG_CHAT_ID) return
 
-    approveShout(ctx.match.id)
+    const serial = approveShout(ctx.match.id)
     await ctx.editMessageWith(msg => ({
-        text: html`${msg.textWithEntities}<br><br>✅ Approved!`,
+        text: html`${msg.textWithEntities}<br><br>✅ Approved! ID: <code>${serial}</code>`,
     }))
 })
 
@@ -58,6 +58,17 @@ dp.onNewMessage(filters.and(filters.chatId(env.TG_CHAT_ID), filters.command('sho
     const ip = ctx.command[1]
 
     unbanShouts(ip)
+    await ctx.answerText('done')
+})
+
+dp.onNewMessage(filters.and(filters.chatId(env.TG_CHAT_ID), filters.command('shoutbox_reply')), async (ctx) => {
+    const serial = Number(ctx.command[1])
+    if (Number.isNaN(serial)) {
+        await ctx.answerText('invalid serial')
+        return
+    }
+
+    answerBySerial(serial, ctx.command[2])
     await ctx.answerText('done')
 })
 

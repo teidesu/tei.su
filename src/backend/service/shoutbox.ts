@@ -26,6 +26,7 @@ const fetchList = db.select({
     text: shouts.text,
     pending: shouts.pending,
     serial: shouts.serial,
+    reply: shouts.reply,
 }).from(shouts)
     .where(filter)
     .limit(SHOUTS_PER_PAGE)
@@ -58,6 +59,8 @@ export function approveShout(id: string) {
         .set({ pending: false, serial: nextSerial })
         .where(eq(shouts.id, id))
         .run()
+
+    return nextSerial
 }
 
 export function declineShout(id: string) {
@@ -78,6 +81,13 @@ export function deleteBySerial(serial: number) {
             gt(shouts.serial, sql.placeholder('serial')),
         ))
         .run({ serial })
+}
+
+export function answerBySerial(serial: number, reply: string) {
+    db.update(shouts)
+        .set({ reply })
+        .where(eq(shouts.serial, serial))
+        .execute()
 }
 
 export function banShouts(ip: string, expires: number) {

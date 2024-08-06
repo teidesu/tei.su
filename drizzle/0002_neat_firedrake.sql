@@ -1,0 +1,1 @@
+ALTER TABLE `shouts` ADD `reply` text;

@@ -69,3 +69,7 @@
 .paginationLink {
     color: var(--text-secondary);
 }
+
+.reply {
+    margin-top: 6px;
+}

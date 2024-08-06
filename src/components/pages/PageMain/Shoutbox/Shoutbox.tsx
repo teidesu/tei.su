@@ -73,6 +73,12 @@ function ShoutboxInner(props: {
                 </div>
                 <div class={css.text}>
                     {props.text}
+                    {props.reply && (
+                        <div class={css.reply}>
+                            <b>reply: </b>
+                            {props.reply}
+                        </div>
+                    )}
                 </div>
             </div>
         )
