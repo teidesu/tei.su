@@ -26,6 +26,7 @@
         "dotenv": "^16.4.5",
         "drizzle-kit": "^0.23.1",
         "drizzle-orm": "^0.32.1",
+        "rate-limiter-flexible": "^5.0.3",
         "solid-js": "^1.8.19",
         "typescript": "^5.5.4",
         "zod": "^3.23.8",

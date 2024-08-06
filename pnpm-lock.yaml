@@ -50,6 +50,9 @@ importers:
       drizzle-orm:
         specifier: ^0.32.1
         version: 0.32.1(@types/better-sqlite3@7.6.11)(better-sqlite3@11.1.2)
+      rate-limiter-flexible:
+        specifier: ^5.0.3
+        version: 5.0.3
       solid-js:
         specifier: ^1.8.19
         version: 1.8.19
@@ -3090,6 +3093,9 @@ packages:
   range-parser@1.2.1:
     resolution: {integrity: sha512-Hrgsx+orqoygnmhFbKaHE6c296J+HTAQXoxEF6gNupROmmGJRoyzfG3ccAveqCBrwr/2yxQ5BVd/GTl5agOwSg==}
     engines: {node: '>= 0.6'}
+
+  rate-limiter-flexible@5.0.3:
+    resolution: {integrity: sha512-lWx2y8NBVlTOLPyqs+6y7dxfEpT6YFqKy3MzWbCy95sTTOhOuxufP2QvRyOHpfXpB9OUJPbVLybw3z3AVAS5fA==}
 
   rc@1.2.8:
     resolution: {integrity: sha512-y3bGgqKj3QBdxLbLkomlohkvsA8gdAiUQlSBJnBhfn+BPxg4bc62d8TcBW15wavDfgexCgccckhcZvywyQYPOw==}
@@ -7065,6 +7071,8 @@ snapshots:
   queue-microtask@1.2.3: {}
 
   range-parser@1.2.1: {}
+
+  rate-limiter-flexible@5.0.3: {}
 
   rc@1.2.8:
     dependencies:

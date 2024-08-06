@@ -1,16 +1,21 @@
 import type { APIRoute } from 'astro'
 import { z } from 'zod'
 import { fromError } from 'zod-validation-error'
+import { RateLimiterMemory } from 'rate-limiter-flexible'
 
 import { createShout, fetchShouts } from '~/backend/service/shoutbox'
 import { getRequestIp } from '~/backend/utils/request'
 import { verifyCsrfToken } from '~/backend/utils/csrf'
+import { HttpResponse } from '~/backend/utils/response'
 
 const schema = z.object({
     _csrf: z.string(),
     message: z.string(),
     private: z.literal('').optional(),
 })
+
+const rateLimitPerIp = new RateLimiterMemory({ points: 3, duration: 300 })
+const rateLimitGlobal = new RateLimiterMemory({ points: 100, duration: 3600 })
 
 export const POST: APIRoute = async (ctx) => {
     const contentType = ctx.request.headers.get('content-type')
@@ -25,27 +30,30 @@ export const POST: APIRoute = async (ctx) => {
 
     const body = await schema.safeParseAsync(bodyRaw)
     if (body.error) {
-        return new Response(JSON.stringify({
+        return HttpResponse.json({
             error: fromError(body.error).message,
-        }), {
-            status: 400,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        }, { status: 400 })
     }
 
     const ip = getRequestIp(ctx)
 
     if (!verifyCsrfToken(ip, body.data._csrf)) {
-        return new Response(JSON.stringify({
+        return HttpResponse.json({
             error: 'csrf token is invalid',
-        }), {
-            status: 400,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
+        }, { status: 400 })
+    }
+
+    const remainingLocal = await rateLimitPerIp.get(ip)
+    const remainingGlobal = await rateLimitGlobal.get('GLOBAL')
+    if (remainingLocal?.remainingPoints === 0) {
+        return HttpResponse.json({
+            error: 'too many requests',
+        }, { status: 400 })
+    }
+    if (remainingGlobal?.remainingPoints === 0) {
+        return HttpResponse.json({
+            error: `too many requests (globally), please retry after ${Math.ceil(remainingGlobal.msBeforeNext) / 60_000} minutes`,
+        }, { status: 400 })
     }
 
     const result = await createShout({
@@ -54,23 +62,16 @@ export const POST: APIRoute = async (ctx) => {
         text: body.data.message,
     })
 
+    await rateLimitPerIp.penalty(ip, 1)
+    await rateLimitGlobal.penalty('GLOBAL', 1)
+
     if (isFormSubmit) {
-        return new Response(null, {
-            status: 301,
-            headers: {
-                Location: typeof result === 'string' ? `/?shout_error=${result}` : '/',
-            },
-        })
+        return HttpResponse.redirect(typeof result === 'string' ? `/?shout_error=${result}` : '/')
     }
 
-    return new Response(JSON.stringify(
+    return HttpResponse.json(
         typeof result === 'string' ? { error: result } : { ok: true },
-    ), {
-        status: 200,
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+    )
 }
 
 export const GET: APIRoute = async (ctx) => {
@@ -81,9 +82,5 @@ export const GET: APIRoute = async (ctx) => {
 
     const data = fetchShouts(page, getRequestIp(ctx))
 
-    return new Response(JSON.stringify(data), {
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
+    return HttpResponse.json(data)
 }
