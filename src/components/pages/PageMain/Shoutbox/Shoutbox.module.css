@@ -54,12 +54,16 @@
     white-space: pre-wrap;
 }
 
+.formControls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .pagination {
     display: flex;
     gap: 8px;
-    justify-content: flex-end;
     color: var(--text-secondary);
-    margin-top: 8px;
 }
 
 .paginationLink {

@@ -146,43 +146,44 @@ function ShoutboxInner(props: {
                         <Icon glyph={GravityMegaphone} size={16} />
                     </Button>
                 </div>
-                <Checkbox
-                    label="make it private"
-                    name="private"
-                />
+                <div class={css.formControls}>
+                    <Checkbox
+                        label="make it private"
+                        name="private"
+                    />
+                    <Show when={shouts.data && shouts.data.pageCount > 1}>
+                        <div class={css.pagination}>
+                            <Show when={page() > 0}>
+                                <a
+                                    class={css.paginationLink}
+                                    rel="external"
+                                    href={page() === 1 ? '/' : `?shouts_page=${page() - 1}`}
+                                    onClick={onPageClick(false)}
+                                    data-astro-reload
+                                >
+                                    &lt; prev
+                                </a>
+                            </Show>
+                            <span>{page() + 1}</span>
+                            <Show when={page() < shouts.data!.pageCount - 1}>
+                                <a
+                                    class={css.paginationLink}
+                                    rel="external"
+                                    href={`?shouts_page=${page() + 1}`}
+                                    onClick={onPageClick(true)}
+                                    data-astro-reload
+                                >
+                                    next &gt;
+                                </a>
+                            </Show>
+                        </div>
+                    </Show>
+                </div>
             </form>
 
             <div class={css.shouts}>
                 {shoutsRender()}
             </div>
-
-            <Show when={shouts.data && shouts.data.pageCount > 1}>
-                <div class={css.pagination}>
-                    <Show when={page() > 0}>
-                        <a
-                            class={css.paginationLink}
-                            rel="external"
-                            href={page() === 1 ? '/' : `?shouts_page=${page() - 1}`}
-                            onClick={onPageClick(false)}
-                            data-astro-reload
-                        >
-                            &lt; prev
-                        </a>
-                    </Show>
-                    <span>{page() + 1}</span>
-                    <Show when={page() < shouts.data!.pageCount - 1}>
-                        <a
-                            class={css.paginationLink}
-                            rel="external"
-                            href={`?shouts_page=${page() + 1}`}
-                            onClick={onPageClick(true)}
-                            data-astro-reload
-                        >
-                            next &gt;
-                        </a>
-                    </Show>
-                </div>
-            </Show>
         </section>
     )
 }
