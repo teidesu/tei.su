@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { fromError } from 'zod-validation-error'
 import { RateLimiterMemory } from 'rate-limiter-flexible'
 
-import { createShout, fetchShouts } from '~/backend/service/shoutbox'
+import { createShout, fetchShouts, isShoutboxBanned } from '~/backend/service/shoutbox'
 import { getRequestIp } from '~/backend/utils/request'
 import { verifyCsrfToken } from '~/backend/utils/csrf'
 import { HttpResponse } from '~/backend/utils/response'
@@ -40,6 +40,19 @@ export const POST: APIRoute = async (ctx) => {
     if (!verifyCsrfToken(ip, body.data._csrf)) {
         return HttpResponse.json({
             error: 'csrf token is invalid',
+        }, { status: 400 })
+    }
+
+    if (isShoutboxBanned('GLOBAL')) {
+        return HttpResponse.json({
+            error: 'shoutbox is temporarily disabled',
+        }, { status: 400 })
+    }
+
+    const bannedUntil = isShoutboxBanned(ip)
+    if (bannedUntil) {
+        return HttpResponse.json({
+            error: `you were banned until ${bannedUntil}`,
         }, { status: 400 })
     }
 

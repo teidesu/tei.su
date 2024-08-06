@@ -2,7 +2,7 @@ import { BotKeyboard, html } from '@mtcute/node'
 import { and, desc, eq, gt, not, or, sql } from 'drizzle-orm'
 
 import { ShoutboxAction } from '../bot/shoutbox.js'
-import { shouts } from '../models/index.js'
+import { shouts, shoutsBans } from '../models/index.js'
 import { URL_REGEX } from '../utils/url.js'
 import { db } from '../db'
 import { env } from '../env'
@@ -78,6 +78,37 @@ export function deleteBySerial(serial: number) {
             gt(shouts.serial, sql.placeholder('serial')),
         ))
         .run({ serial })
+}
+
+export function banShouts(ip: string, expires: number) {
+    db.insert(shoutsBans)
+        .values({
+            ip,
+            expires,
+        })
+        .onConflictDoUpdate({
+            target: shoutsBans.ip,
+            set: { expires },
+        })
+        .execute()
+}
+
+export function unbanShouts(ip: string) {
+    db.delete(shoutsBans)
+        .where(eq(shoutsBans.ip, ip))
+        .execute()
+}
+
+export function isShoutboxBanned(ip: string): Date | null {
+    const ban = db.select()
+        .from(shoutsBans)
+        .where(eq(shoutsBans.ip, ip))
+        .get()
+    if (!ban) return null
+
+    const expires = ban.expires
+    if (Date.now() > expires) return null
+    return new Date(ban.expires)
 }
 
 function validateShout(text: string, isPublic: boolean) {

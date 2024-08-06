@@ -50,6 +50,9 @@ importers:
       drizzle-orm:
         specifier: ^0.32.1
         version: 0.32.1(@types/better-sqlite3@7.6.11)(better-sqlite3@11.1.2)
+      parse-duration:
+        specifier: ^1.1.0
+        version: 1.1.0
       rate-limiter-flexible:
         specifier: ^5.0.3
         version: 5.0.3
@@ -2929,6 +2932,9 @@ packages:
   parent-module@1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
     engines: {node: '>=6'}
+
+  parse-duration@1.1.0:
+    resolution: {integrity: sha512-z6t9dvSJYaPoQq7quMzdEagSFtpGu+utzHqqxmpVWNNZRIXnvqyCvn9XsTdh7c/w0Bqmdz3RB3YnRaKtpRtEXQ==}
 
   parse-entities@2.0.0:
     resolution: {integrity: sha512-kkywGpCcRYhqQIchaWqZ875wzpS/bMKhz5HnN3p7wveJTkTtyAB/AlnS0f8DFSqYW1T82t6yEAkEcB+A1I3MbQ==}
@@ -6902,6 +6908,8 @@ snapshots:
   parent-module@1.0.1:
     dependencies:
       callsites: 3.1.0
+
+  parse-duration@1.1.0: {}
 
   parse-entities@2.0.0:
     dependencies:

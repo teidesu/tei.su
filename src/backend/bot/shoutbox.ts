@@ -1,8 +1,9 @@
 import { CallbackDataBuilder, Dispatcher, filters } from '@mtcute/dispatcher'
 import { html } from '@mtcute/node'
+import parseDuration from 'parse-duration'
 
 import { env } from '../env'
-import { approveShout, declineShout, deleteBySerial } from '../service/shoutbox'
+import { approveShout, banShouts, declineShout, deleteBySerial, unbanShouts } from '../service/shoutbox'
 
 export const ShoutboxAction = new CallbackDataBuilder('shoutbox', 'id', 'action')
 
@@ -36,6 +37,28 @@ dp.onNewMessage(filters.and(filters.chatId(env.TG_CHAT_ID), filters.command('sho
 
     deleteBySerial(serial)
     await ctx.answerText('deleted')
+})
+
+dp.onNewMessage(filters.and(filters.chatId(env.TG_CHAT_ID), filters.command('shoutbox_ban')), async (ctx) => {
+    const ip = ctx.command[1]
+    const duration = parseDuration(ctx.command[2])
+
+    if (!duration) {
+        await ctx.answerText('invalid duration')
+        return
+    }
+
+    const until = Date.now() + duration
+
+    banShouts(ip, until)
+    await ctx.answerText(`banned ${ip} until ${new Date(until).toISOString()}`)
+})
+
+dp.onNewMessage(filters.and(filters.chatId(env.TG_CHAT_ID), filters.command('shoutbox_unban')), async (ctx) => {
+    const ip = ctx.command[1]
+
+    unbanShouts(ip)
+    await ctx.answerText('done')
 })
 
 export { dp as shoutboxDp }

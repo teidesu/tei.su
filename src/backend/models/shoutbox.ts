@@ -11,3 +11,8 @@ export const shouts = sqliteTable('shouts', {
     text: text('text'),
     createdAt: text('created_at').notNull().default(sql`(CURRENT_TIMESTAMP)`),
 })
+
+export const shoutsBans = sqliteTable('shouts_bans', {
+    ip: text('ip').primaryKey(),
+    expires: integer('expires').notNull(),
+})
