@@ -255,8 +255,12 @@ export function PageMain(props: {
                             ),
                         },
                         {
-                            name: 'imessage',
-                            value: () => props.data.email,
+                            name: 'matrix',
+                            value: () => (
+                                <Link href="//matrix.to/#/@teidesu:stupid.fish" target="_blank">
+                                    @teidesu:stupid.fish
+                                </Link>
+                            ),
                         },
                         {
                             name: 'email',
