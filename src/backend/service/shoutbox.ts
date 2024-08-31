@@ -148,6 +148,7 @@ export async function createShout(params: {
     fromIp: string
     private: boolean
     text: string
+    isFormSubmit: boolean
 }): Promise<boolean | string> {
     let { text } = params
 
@@ -155,15 +156,16 @@ export async function createShout(params: {
 
     const validateResult = validateShout(text, !params.private)
 
-    const kindText = params.private ? 'private message' : 'shout'
+    const header = html`${params.private ? 'private message' : 'shout'} from <code>${params.fromIp}</code>`
+    const subheader = html`<br>via: ${params.isFormSubmit ? '#form' : '#api'}<br><br>`
 
     if (params.private || validateResult !== true) {
         const was = params.private ? '' : ` was auto-declined (${validateResult})`
         await tg.sendText(
             env.TG_CHAT_ID,
             html`
-                ${kindText} from <code>${params.fromIp}</code>${was}:
-                <br><br>
+                ${header}${was}:
+                ${subheader}
                 ${text}
             `,
         )
@@ -179,8 +181,8 @@ export async function createShout(params: {
         await tg.sendText(
             env.TG_CHAT_ID,
             html`
-                ${kindText} from <code>${params.fromIp}</code>:
-                <br><br>
+                ${header}:
+                ${subheader}
                 ${text}
             `,
             {

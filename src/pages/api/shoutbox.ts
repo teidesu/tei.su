@@ -11,7 +11,7 @@ import { HttpResponse } from '~/backend/utils/response'
 const schema = z.object({
     _csrf: z.string(),
     message: z.string(),
-    private: z.literal('').optional(),
+    private: z.string().optional(),
 })
 
 const rateLimitPerIp = new RateLimiterMemory({ points: 3, duration: 300 })
@@ -71,8 +71,9 @@ export const POST: APIRoute = async (ctx) => {
 
     const result = await createShout({
         fromIp: ip,
-        private: body.data.private === '',
+        private: body.data.private !== undefined,
         text: body.data.message,
+        isFormSubmit,
     })
 
     await rateLimitPerIp.penalty(ip, 1)
