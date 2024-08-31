@@ -29,19 +29,24 @@ function ShoutboxInner(props: {
 }) {
     // eslint-disable-next-line solid/reactivity
     const [page, setPage] = createSignal(props.initPage)
+    // eslint-disable-next-line solid/reactivity
+    const [initData, setInitData] = createSignal<ShoutsData | undefined>(props.initPageData)
 
     const shouts = createQuery(() => ({
         queryKey: ['shouts', page()],
         queryFn: () => fetchShouts(page()),
+        cacheTime: 0,
+        gcTime: 0,
         refetchInterval: 30000,
         placeholderData: keepPreviousData,
-        initialData: props.initPageData,
+        initialData: initData,
     }))
     const [sending, setSending] = createSignal(false)
 
     const onPageClick = (next: boolean) => (e: MouseEvent) => {
         e.preventDefault()
         e.stopPropagation()
+        setInitData(undefined)
 
         const newPage = next ? page() + 1 : page() - 1
 
@@ -89,6 +94,7 @@ function ShoutboxInner(props: {
     const onSubmit = (e: Event) => {
         e.preventDefault()
         setSending(true)
+        setInitData(undefined)
 
         const isPrivate = (form.elements.namedItem('private') as HTMLInputElement).checked
         fetch('/api/shoutbox', {
