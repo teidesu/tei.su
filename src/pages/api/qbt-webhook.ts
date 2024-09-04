@@ -7,7 +7,7 @@ import { env } from '~/backend/env'
 import { telegramNotify } from '~/backend/bot/notify'
 
 export const POST: APIRoute = async (ctx) => {
-    if (new URLSearchParams(ctx.request.url).get('secret') !== env.QBT_WEBHOOK_SECRET) {
+    if (new URL(ctx.request.url).searchParams.get('secret') !== env.QBT_WEBHOOK_SECRET) {
         return new Response('Unauthorized', { status: 401 })
     }
 
