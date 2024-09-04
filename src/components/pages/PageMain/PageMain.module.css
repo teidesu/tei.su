@@ -40,6 +40,10 @@
     cursor: pointer;
     border-radius: 4px;
 
+    &::-webkit-details-marker {
+        display: none;
+    }
+
     &:hover {
         background: var(--control-bg-hover);
     }
