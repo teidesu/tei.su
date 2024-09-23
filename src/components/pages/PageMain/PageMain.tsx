@@ -91,7 +91,11 @@ export function PageMain(props: {
         <div>
             -
             {' '}
-            <Link href={item.link} target="_blank">
+            <Link
+                href={item.link}
+                target="_blank"
+                data-astro-prefetch={item.noPrefetch ? 'false' : undefined}
+            >
                 {item.title}
             </Link>
             :

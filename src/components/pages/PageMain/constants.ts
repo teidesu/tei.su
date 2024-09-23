@@ -26,6 +26,7 @@ export const SUBLINKS = [
         title: 'nudes',
         subtitle: '( ͡° ͜ʖ ͡°)',
         comment: 'a lot of them, actually',
+        noPrefetch: true,
     },
     {
         link: '/cheerio/index.html',

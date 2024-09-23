@@ -1,6 +1,9 @@
 import type { APIRoute } from 'astro'
+import { html } from '@mtcute/node'
 
 import { isBotUserAgent } from '~/backend/utils/bot'
+import { telegramNotify } from '../backend/bot/notify'
+import { getRequestIp } from '../backend/utils/request'
 
 const HTML = `
 <html>
@@ -22,6 +25,8 @@ export const GET: APIRoute = async (ctx) => {
             },
         })
     }
+
+    telegramNotify(html`someone (ip ${getRequestIp(ctx)}) got rickrolled >:3`)
 
     return new Response(null, {
         status: 302,
