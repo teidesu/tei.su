@@ -11,24 +11,14 @@ import { HttpResponse } from '~/backend/utils/response'
 const schema = z.object({
     _csrf: z.string(),
     message: z.string(),
-    private: z.string().optional(),
+    private: z.boolean(),
 })
 
 const rateLimitPerIp = new RateLimiterMemory({ points: 3, duration: 300 })
 const rateLimitGlobal = new RateLimiterMemory({ points: 100, duration: 3600 })
 
 export const POST: APIRoute = async (ctx) => {
-    const contentType = ctx.request.headers.get('content-type')
-    const isFormSubmit = contentType === 'application/x-www-form-urlencoded'
-
-    let bodyRaw: unknown
-    if (isFormSubmit) {
-        bodyRaw = Object.fromEntries((await ctx.request.formData()).entries())
-    } else {
-        bodyRaw = await ctx.request.json()
-    }
-
-    const body = await schema.safeParseAsync(bodyRaw)
+    const body = await schema.safeParseAsync(await ctx.request.json())
     if (body.error) {
         return HttpResponse.json({
             error: fromError(body.error).message,
@@ -71,17 +61,12 @@ export const POST: APIRoute = async (ctx) => {
 
     const result = await createShout({
         fromIp: ip,
-        private: body.data.private !== undefined,
+        private: body.data.private,
         text: body.data.message,
-        isFormSubmit,
     })
 
     await rateLimitPerIp.penalty(ip, 1)
     await rateLimitGlobal.penalty('GLOBAL', 1)
-
-    if (isFormSubmit) {
-        return HttpResponse.redirect(typeof result === 'string' ? `/?shout_error=${result}` : '/')
-    }
 
     return HttpResponse.json(
         typeof result === 'string' ? { error: result } : { ok: true },

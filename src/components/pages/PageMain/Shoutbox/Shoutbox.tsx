@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 /** @jsxImportSource solid-js */
-import { type ComponentProps, Show, createSignal } from 'solid-js'
+import { type ComponentProps, Show, createSignal, onMount } from 'solid-js'
 import { QueryClient, QueryClientProvider, createQuery, keepPreviousData } from '@tanstack/solid-query'
 import { format } from 'date-fns/format'
 
@@ -42,6 +42,8 @@ function ShoutboxInner(props: {
         initialData: initData,
     }))
     const [sending, setSending] = createSignal(false)
+    const [jsEnabled, setJsEnabled] = createSignal(false)
+    onMount(() => setJsEnabled(true))
 
     const onPageClick = (next: boolean) => (e: MouseEvent) => {
         e.preventDefault()
@@ -89,14 +91,15 @@ function ShoutboxInner(props: {
         )
     })
 
-    let form!: HTMLFormElement
+    let privateCheckbox!: HTMLInputElement
+    let messageInput!: HTMLTextAreaElement
 
     const onSubmit = (e: Event) => {
         e.preventDefault()
         setSending(true)
         setInitData(undefined)
 
-        const isPrivate = (form.elements.namedItem('private') as HTMLInputElement).checked
+        const isPrivate = privateCheckbox.checked
         fetch('/api/shoutbox', {
             method: 'POST',
             headers: {
@@ -104,8 +107,8 @@ function ShoutboxInner(props: {
             },
             body: JSON.stringify({
                 _csrf: props.csrf,
-                message: (form.elements.namedItem('message') as HTMLInputElement).value,
-                private: isPrivate ? '' : undefined,
+                message: messageInput.value,
+                private: isPrivate,
             }),
         })
             .then(res => res.json())
@@ -114,15 +117,21 @@ function ShoutboxInner(props: {
                     alert(data.error + (data.message ? `: ${data.message}` : ''))
                 } else if (isPrivate) {
                     alert('private message sent')
-                    form.reset()
+                    messageInput.value = ''
                 } else {
                     alert('shout sent! it will appear after moderation')
                     shouts.refetch()
-                    form.reset()
+                    messageInput.value = ''
                 }
 
                 setSending(false)
             })
+    }
+
+    const placeholder = () => {
+        if (props.shoutError) return props.shoutError
+        if (!jsEnabled()) return '⚠️ please enable javascript to use the form.\nim sorry, but there are just too many spammers out there :c'
+        return 'let the void hear you'
     }
 
     return (
@@ -137,22 +146,24 @@ function ShoutboxInner(props: {
                 pre-moderated, but they do not reflect my&nbsp;views.
             </TextComment>
 
-            <form action="/api/shoutbox" class={css.form} method="post" ref={form}>
+            <div class={css.form}>
                 <input type="hidden" name="_csrf" value={props.csrf} />
                 <div class={css.formInput}>
                     <TextArea
-                        disabled={sending()}
+                        ref={messageInput}
+                        disabled={sending() || !jsEnabled()}
                         class={css.textarea}
                         grow
                         maxRows={5}
                         name="message"
-                        placeholder={props.shoutError || 'let the void hear you'}
+                        placeholder={placeholder()}
                         required
                     />
 
                     <Button
                         type="submit"
                         onClick={onSubmit}
+                        disabled={sending() || !jsEnabled()}
                         title="submit"
                     >
                         <Icon glyph={GravityMegaphone} size={16} />
@@ -160,6 +171,7 @@ function ShoutboxInner(props: {
                 </div>
                 <div class={css.formControls}>
                     <Checkbox
+                        ref={privateCheckbox}
                         label="make it private"
                         name="private"
                     />
@@ -191,7 +203,7 @@ function ShoutboxInner(props: {
                         </div>
                     </Show>
                 </div>
-            </form>
+            </div>
 
             <div class={css.shouts}>
                 {shoutsRender()}
