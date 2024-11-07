@@ -251,10 +251,10 @@ export function PageMain(props: {
                             ),
                         },
                         {
-                            name: 'fedi',
+                            name: 'bluesky',
                             value: () => (
-                                <Link href="https://very.stupid.fish/@teidesu" target="_blank">
-                                    @teidesu@very.stupid.fish
+                                <Link href="https://bsky.app/profile/did:web:tei.su" target="_blank">
+                                    @tei.pet
                                 </Link>
                             ),
                         },
