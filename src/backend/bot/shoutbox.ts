@@ -3,7 +3,14 @@ import { html } from '@mtcute/node'
 import parseDuration from 'parse-duration'
 
 import { env } from '../env'
-import { answerBySerial, approveShout, banShouts, declineShout, deleteBySerial, unbanShouts } from '../service/shoutbox'
+import {
+    answerBySerial,
+    approveShout,
+    banShouts,
+    declineShout,
+    deleteBySerial,
+    unbanShouts,
+} from '../service/shoutbox'
 
 export const ShoutboxAction = new CallbackDataBuilder('shoutbox', 'id', 'action')
 

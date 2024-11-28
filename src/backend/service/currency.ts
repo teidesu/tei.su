@@ -1,8 +1,8 @@
 import { z } from 'zod'
+import { AsyncResource } from '@fuman/utils'
 
-import { Reloadable } from '../utils/reloadable'
 import { env } from '../env'
-import { zodValidate } from '../../utils/zod'
+import { ffetch } from '../utils/fetch.ts'
 
 export const AVAILABLE_CURRENCIES = ['RUB', 'USD', 'EUR']
 const TTL = 60 * 60 * 1000 // 1 hour
@@ -17,25 +17,24 @@ const schema = z.object({
     })),
 })
 
-const reloadable = new Reloadable({
-    name: 'currencies',
-    expiresIn: () => TTL,
-    async fetch() {
+const reloadable = new AsyncResource<z.infer<typeof schema>>({
+    // expiresIn: () => TTL,
+    async fetcher() {
         // https://api.currencyapi.com/v3/latest?apikey=cur_live_ZGgJCl3CfMM7TqXSdlUTiKlO2e81lLcOVX5mCXb6&currencies=USD%2CEUR
         // apikey=cur_live_ZGgJCl3CfMM7TqXSdlUTiKlO2e81lLcOVX5mCXb6&currencies=USD%2CEUR
-        const res = await fetch(`https://api.currencyapi.com/v3/latest?${new URLSearchParams({
-            apikey: env.CURRENCY_API_TOKEN,
-            currencies: AVAILABLE_CURRENCIES.slice(1).join(','),
-            base_currency: AVAILABLE_CURRENCIES[0],
-        })}`)
+        const res = await ffetch('https://api.currencyapi.com/v3/latest', {
+            query: {
+                apikey: env.CURRENCY_API_TOKEN,
+                currencies: AVAILABLE_CURRENCIES.slice(1).join(','),
+                base_currency: AVAILABLE_CURRENCIES[0],
+            },
+        }).parsedJson(schema)
 
-        if (!res.ok) {
-            throw new Error(`Failed to fetch currencies: ${res.status} ${await res.text()}`)
+        return {
+            data: res,
+            expiresIn: TTL,
         }
-
-        return zodValidate(schema, await res.json())
     },
-    lazy: true,
     swr: true,
 })
 

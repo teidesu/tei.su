@@ -1,8 +1,9 @@
 import { z } from 'zod'
+import { AsyncResource } from '@fuman/utils'
 
-import { Reloadable } from '~/backend/utils/reloadable'
 import { zodValidate } from '~/utils/zod'
 import { env } from '~/backend/env'
+import { ffetch } from '../../utils/fetch.ts'
 
 const LASTFM_TTL = 1000 * 60 * 5 // 5 minutes
 const LASTFM_STALE_TTL = 1000 * 60 * 60 // 1 hour
@@ -33,39 +34,31 @@ const ResponseSchema = z.object({
     }),
 })
 
-export const lastfm = new Reloadable<LastfmTrack>({
-    name: 'last-track',
-    async fetch(prev) {
-        const params = new URLSearchParams({
-            method: 'user.getrecenttracks',
-            user: LASTFM_USERNAME,
-            api_key: LASTFM_TOKEN,
-            format: 'json',
-            limit: '1',
-        })
-        if (prev?.date) {
-            params.set('from', prev.date!.uts)
-        }
-        const res = await fetch(`https://ws.audioscrobbler.com/2.0/?${params}`)
+export const lastfm = new AsyncResource<LastfmTrack>({
+    async fetcher({ current }) {
+        const res = await ffetch('https://ws.audioscrobbler.com/2.0/', {
+            query: {
+                method: 'user.getrecenttracks',
+                user: LASTFM_USERNAME,
+                api_key: LASTFM_TOKEN,
+                format: 'json',
+                limit: '1',
+                from: current?.date?.uts,
+            },
+        }).parsedJson(ResponseSchema)
 
-        if (!res.ok) {
-            throw new Error(`Failed to fetch last.fm data: ${res.status} ${await res.text()}`)
-        }
-
-        const data = await res.json()
-        const parsed = await zodValidate(ResponseSchema, data)
-
-        const track = parsed.recenttracks.track[0]
+        const track = res.recenttracks.track[0]
         if (!track.date && track['@attr']?.nowplaying) {
             track.date = { uts: Math.floor(Date.now() / 1000).toString() }
         } else if (!track.date) {
             throw new Error('no track found')
         }
 
-        return track
+        return {
+            data: track,
+            expiresIn: LASTFM_TTL,
+        }
     },
-    expiresIn: () => LASTFM_TTL,
-    lazy: true,
     swr: true,
-    swrValidator: (_data, time) => Date.now() - time < LASTFM_STALE_TTL,
+    swrValidator: ({ currentExpiresAt }) => Date.now() - currentExpiresAt < LASTFM_STALE_TTL,
 })

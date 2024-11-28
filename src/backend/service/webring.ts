@@ -1,7 +1,7 @@
+import { AsyncResource } from '@fuman/utils'
 import { z } from 'zod'
 
-import { Reloadable } from '~/backend/utils/reloadable'
-import { zodValidate } from '~/utils/zod'
+import { ffetch } from '../utils/fetch.ts'
 
 const WEBRING_URL = 'https://otomir23.me/webring/5/data'
 const WEBRING_TTL = 1000 * 60 * 60 * 24 // 24 hours
@@ -19,21 +19,14 @@ const WebringData = z.object({
 })
 export type WebringData = z.infer<typeof WebringData>
 
-export const webring = new Reloadable({
-    name: 'webring',
-    fetch: async () => {
-        const response = await fetch(WEBRING_URL)
-        if (!response.ok) {
-            const text = await response.text()
-            throw new Error(`Failed to fetch webring data: ${response.status} ${text}`)
+export const webring = new AsyncResource<WebringData>({
+    fetcher: async () => {
+        const res = await ffetch(WEBRING_URL).parsedJson(WebringData)
+
+        return {
+            data: res,
+            expiresIn: WEBRING_TTL,
         }
-
-        const data = await response.json()
-        const parsed = await zodValidate(WebringData, data)
-
-        return parsed
     },
-    expiresIn: () => WEBRING_TTL,
-    lazy: true,
     swr: true,
 })

@@ -17,6 +17,12 @@ importers:
       '@astrojs/solid-js':
         specifier: ^4.4.0
         version: 4.4.0(solid-js@1.8.19)(vite@5.3.5(@types/node@22.0.2)(sugarss@4.0.1(postcss@8.4.40)))
+      '@fuman/fetch':
+        specifier: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@b0c74cb
+        version: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@b0c74cb(zod@3.23.8)
+      '@fuman/utils':
+        specifier: https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb
+        version: https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb
       '@mtcute/dispatcher':
         specifier: ^0.16.0
         version: 0.16.0
@@ -818,6 +824,28 @@ packages:
   '@eslint/object-schema@2.1.4':
     resolution: {integrity: sha512-BsWiH1yFGjXXS2yvrf5LyuoSIIbPrGUWob917o+BTKuZ7qJdxX8aJLRxs1fS9n6r7vESrq1OUqb68dANcFXuQQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@fuman/fetch@https://pkg.pr.new/teidesu/fuman/@fuman/fetch@b0c74cb':
+    resolution: {tarball: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@b0c74cb}
+    version: 0.0.1
+    peerDependencies:
+      tough-cookie: ^5.0.0 || ^4.0.0
+      valibot: ^0.42.0
+      yup: ^1.0.0
+      zod: ^3.0.0
+    peerDependenciesMeta:
+      tough-cookie:
+        optional: true
+      valibot:
+        optional: true
+      yup:
+        optional: true
+      zod:
+        optional: true
+
+  '@fuman/utils@https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb':
+    resolution: {tarball: https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb}
+    version: 0.0.1
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -4437,6 +4465,14 @@ snapshots:
   '@eslint/js@9.8.0': {}
 
   '@eslint/object-schema@2.1.4': {}
+
+  '@fuman/fetch@https://pkg.pr.new/teidesu/fuman/@fuman/fetch@b0c74cb(zod@3.23.8)':
+    dependencies:
+      '@fuman/utils': https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb
+    optionalDependencies:
+      zod: 3.23.8
+
+  '@fuman/utils@https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb': {}
 
   '@humanwhocodes/module-importer@1.0.1': {}
 

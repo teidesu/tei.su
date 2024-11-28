@@ -1,4 +1,3 @@
-import { fediLastSeen } from './fedi'
 import { githubLastSeen } from './github'
 import { lastfm } from './lastfm'
 import { shikimoriLastSeen } from './shikimori'
@@ -15,12 +14,12 @@ export interface LastSeenItem {
 export async function fetchLastSeen() {
     const [
         lastfmData,
-        fediData,
+        // fediData,
         shikimoriData,
         githubData,
     ] = await Promise.all([
         lastfm.get(),
-        fediLastSeen.get(),
+        // fediLastSeen.get(),
         shikimoriLastSeen.get(),
         githubLastSeen.get(),
     ])
@@ -37,15 +36,15 @@ export async function fetchLastSeen() {
         })
     }
 
-    if (fediData) {
-        res.push({
-            source: 'fedi',
-            sourceLink: 'https://very.stupid.fish/@teidesu',
-            time: new Date(fediData.updatedAt ?? fediData.createdAt).getTime(),
-            text: fediData.text?.slice(0, 40) || '[no text]',
-            link: `https://very.stupid.fish/notes/${fediData.id}`,
-        })
-    }
+    // if (fediData) {
+    //     res.push({
+    //         source: 'fedi',
+    //         sourceLink: 'https://very.stupid.fish/@teidesu',
+    //         time: new Date(fediData.updatedAt ?? fediData.createdAt).getTime(),
+    //         text: fediData.text?.slice(0, 40) || '[no text]',
+    //         link: `https://very.stupid.fish/notes/${fediData.id}`,
+    //     })
+    // }
 
     if (shikimoriData) {
         // thx morr for this fucking awesome api

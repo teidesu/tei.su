@@ -1,5 +1,3 @@
-// include_once(dirname(__FILE__) . "/_secure/umami.php");
-
 import type { APIRoute } from 'astro'
 
 import { umamiLogThisVisit } from '../backend/service/umami'
