@@ -18,11 +18,11 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0(solid-js@1.8.19)(vite@5.3.5(@types/node@22.0.2)(sugarss@4.0.1(postcss@8.4.40)))
       '@fuman/fetch':
-        specifier: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@b0c74cb
-        version: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@b0c74cb(zod@3.23.8)
+        specifier: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@781fbba
+        version: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@781fbba(zod@3.23.8)
       '@fuman/utils':
-        specifier: https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb
-        version: https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb
+        specifier: https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba
+        version: https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba
       '@mtcute/dispatcher':
         specifier: ^0.16.0
         version: 0.16.0
@@ -825,8 +825,8 @@ packages:
     resolution: {integrity: sha512-BsWiH1yFGjXXS2yvrf5LyuoSIIbPrGUWob917o+BTKuZ7qJdxX8aJLRxs1fS9n6r7vESrq1OUqb68dANcFXuQQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fuman/fetch@https://pkg.pr.new/teidesu/fuman/@fuman/fetch@b0c74cb':
-    resolution: {tarball: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@b0c74cb}
+  '@fuman/fetch@https://pkg.pr.new/teidesu/fuman/@fuman/fetch@781fbba':
+    resolution: {tarball: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@781fbba}
     version: 0.0.1
     peerDependencies:
       tough-cookie: ^5.0.0 || ^4.0.0
@@ -843,8 +843,8 @@ packages:
       zod:
         optional: true
 
-  '@fuman/utils@https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb':
-    resolution: {tarball: https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb}
+  '@fuman/utils@https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba':
+    resolution: {tarball: https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba}
     version: 0.0.1
 
   '@humanwhocodes/module-importer@1.0.1':
@@ -4466,13 +4466,13 @@ snapshots:
 
   '@eslint/object-schema@2.1.4': {}
 
-  '@fuman/fetch@https://pkg.pr.new/teidesu/fuman/@fuman/fetch@b0c74cb(zod@3.23.8)':
+  '@fuman/fetch@https://pkg.pr.new/teidesu/fuman/@fuman/fetch@781fbba(zod@3.23.8)':
     dependencies:
-      '@fuman/utils': https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb
+      '@fuman/utils': https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba
     optionalDependencies:
       zod: 3.23.8
 
-  '@fuman/utils@https://pkg.pr.new/teidesu/fuman/@fuman/utils@b0c74cb': {}
+  '@fuman/utils@https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba': {}
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
