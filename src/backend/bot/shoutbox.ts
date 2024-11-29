@@ -1,6 +1,7 @@
 import { CallbackDataBuilder, Dispatcher, filters } from '@mtcute/dispatcher'
 import { html } from '@mtcute/node'
 import parseDuration from 'parse-duration'
+import { assertMatches } from '@fuman/utils'
 
 import { env } from '../env'
 import {
@@ -78,5 +79,22 @@ dp.onNewMessage(filters.and(filters.chatId(env.TG_CHAT_ID), filters.command('sho
     answerBySerial(serial, ctx.command[2])
     await ctx.answerText('done')
 })
+
+// eslint-disable-next-line regexp/no-unused-capturing-group
+const APPROVED_REGEX = /Approved! ID: (\d+)/
+
+dp.onNewMessage(
+    filters.replyTo(
+        msg => APPROVED_REGEX.test(msg.text),
+    ),
+    async (ctx) => {
+        const msg = await ctx.getReplyTo()
+
+        const serial = assertMatches(msg.text, APPROVED_REGEX)[1]
+
+        answerBySerial(Number(serial), ctx.text)
+        await ctx.answerText('reply sent')
+    },
+)
 
 export { dp as shoutboxDp }

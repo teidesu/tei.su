@@ -40,14 +40,16 @@ export async function fetchLastSeen() {
     }
 
     if (bskyData) {
-        const postId = assertMatches(bskyData.uri, /at:\/\/did:web:tei.su\/app\.bsky\.feed\.post\/([a-zA-Z0-9]+)/)
-        res.push({
-            source: 'bsky',
-            sourceLink: 'https://bsky.app/profile/did:web:tei.su',
-            time: new Date(bskyData.record.createdAt).getTime(),
-            text: bskyData.record.text.slice(0, 40) || '[no text]',
-            link: `https://bsky.app/profile/did:web:tei.su/post/${postId[0]}`,
-        })
+        const postId = bskyData.uri.match(/at:\/\/did:web:tei.su\/app\.bsky\.feed\.post\/([a-zA-Z0-9]+)/)
+        if (postId) {
+            res.push({
+                source: 'bsky',
+                sourceLink: 'https://bsky.app/profile/did:web:tei.su',
+                time: new Date(bskyData.record.createdAt).getTime(),
+                text: bskyData.record.text.slice(0, 40) || '[no text]',
+                link: `https://bsky.app/profile/did:web:tei.su/post/${postId[0]}`,
+            })
+        }
     }
 
     if (shikimoriData) {

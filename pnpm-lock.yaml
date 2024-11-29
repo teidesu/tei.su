@@ -24,11 +24,11 @@ importers:
         specifier: https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba
         version: https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba
       '@mtcute/dispatcher':
-        specifier: ^0.16.0
-        version: 0.16.0
+        specifier: ^0.17.0
+        version: 0.17.2
       '@mtcute/node':
-        specifier: ^0.16.3
-        version: 0.16.3
+        specifier: ^0.17.0
+        version: 0.17.0
       '@tanstack/solid-query':
         specifier: ^5.51.21
         version: 5.51.21(solid-js@1.8.19)
@@ -990,32 +990,32 @@ packages:
     resolution: {integrity: sha512-f5DRIOZf7wxogefH03RjMPMdBF7ADTWUMoOs9kaJo06EfwF+aFhMZMDZxHg/Xe12hptN9xoZjGso2fdjapBRIA==}
     engines: {node: '>=10'}
 
-  '@mtcute/core@0.16.3':
-    resolution: {integrity: sha512-8ytCUojgRQHGXRaFqC1hMAVRZjHN9ClWw/hDiyeQE5R/VY4WT4kFBww1fTYX1+g2eoR9UiBfb1ckmj4XdEESuQ==}
+  '@mtcute/core@0.17.1':
+    resolution: {integrity: sha512-ejWWnjvmI6jKUxXdu7C82DQrHBeKqLbfL79oXzhXN4+9gpqwNCwpeuP7EFYCEbP/1tpAxzZblp7vU8qpLmqrHA==}
 
-  '@mtcute/dispatcher@0.16.0':
-    resolution: {integrity: sha512-sHZLi7w3Y895r2A/KxYyPAp5X107e9PIDmkTjPnoH2UU8vV2zqI9HM/fNYXQU2Imz/RC8ZrFWuqL6Mh9I2UWyw==}
+  '@mtcute/dispatcher@0.17.2':
+    resolution: {integrity: sha512-iu7dvmi9MWmjAqBB3pGNNs4VfO8URR2baZ6w9LTbI41qHsCEERz3woXDCcgtbDF0iTlqTGjlDdqc1l16O6NT/g==}
 
-  '@mtcute/file-id@0.16.0':
-    resolution: {integrity: sha512-hScNnSF25c9yAJ2BeIO6iI+lgcguII4VsRpR3+ZLENrQ7jqY3WhoUuZ3wcwgqCqHNq02CI5oC3jBblPHdLd0xw==}
+  '@mtcute/file-id@0.17.0':
+    resolution: {integrity: sha512-XpFDYIUQ3zT9OZyEbqy5nWyFLnGADsBXqDS6ASTLBey1zIGUexWbMJyaOpt+3FVG1XjduhNyWeLycFENQ63YZA==}
 
-  '@mtcute/html-parser@0.16.0':
-    resolution: {integrity: sha512-PQMqN9771FN7H3PPWZbGS4sqxm+5hO4r87C+aXm63vJ7S8cmSsFgpotpHFtpH06jW/Mn0sYQqeOtUo17N4T8vA==}
+  '@mtcute/html-parser@0.17.1':
+    resolution: {integrity: sha512-sMVjhCyd9Y8AU0y51WfRIZCj+ABmiMpzHGO46EA1KvduYIyUo+DJSDP/YqDVE9eMqs2Z7uzEhiWQXqXSGm1aZg==}
 
-  '@mtcute/markdown-parser@0.16.3':
-    resolution: {integrity: sha512-f7QSImgXR3zhJxmSvwPsCZvdeupz4nZhPfUrDj9ZAsng7DUWQ9L5oFvTrMM//D2jqH4TVvJhSHTdHCysrrWATg==}
+  '@mtcute/markdown-parser@0.17.0':
+    resolution: {integrity: sha512-kcDDjmgmNPOU0BvChH/WQUuLOMad1sc6WCixdPItiYhtJLgFOHGYF55eV632pVC0PK+qrrcE9EeigrRg8hJr9g==}
 
-  '@mtcute/node@0.16.3':
-    resolution: {integrity: sha512-zlxb1owY++QMYNdnwD0w0HNvIS7lbgIdr6EPbEDCRYY5PEzQCXYJG6QmKh1qc/0742eUUI2vkREU08wwG2B9dg==}
+  '@mtcute/node@0.17.0':
+    resolution: {integrity: sha512-OkN8hraVjeirwd8tlTYNniYcrJ3YIsSPvMLwy+ZecOzx0R7tpu168blwxvtDwbKkhp/imE1KUq9lKmTJJgnoAA==}
 
-  '@mtcute/tl-runtime@0.16.0':
-    resolution: {integrity: sha512-9HSYbP+ANL6pQmpST4rr+qHg2po2zzhJA/V2+/OLdMlssQRYk5P7xvL7iskwBc0Z5gCVkrIZ57NWTOLNicKLnw==}
+  '@mtcute/tl-runtime@0.17.0':
+    resolution: {integrity: sha512-JZc7v4nmOJGx2zvCk/dWb7WPrJLJQEwq25iumhBmATah25X+WXgpwnvw2nTzStfMaWXMEg2eqHoJC4rkEuY8Pg==}
 
-  '@mtcute/tl@185.0.0':
-    resolution: {integrity: sha512-np284ji54x5jCYmSt0asikzKf55cU2etwSe5aaEEsDPoXqGg3g4BHZMd06KqoluCnlQ69KbCact0RLewWN60Cw==}
+  '@mtcute/tl@189.0.0':
+    resolution: {integrity: sha512-nbJiAfX5wTcP/0BQ1S1xBRiwto/GtNXXrdDp7Zstyq3TN7ZwRTHSvCv1b7xiHn1CGHCAgSnWELchxcufAWDc4A==}
 
-  '@mtcute/wasm@0.16.0':
-    resolution: {integrity: sha512-JKHVzYRIjc2p71L2EFz2DOnpJY4wZ3/4XLRLt7S59lcxRn7+aWGpVED1UF7kq87VmokbuY9y0poXD5RqE6FfVQ==}
+  '@mtcute/wasm@0.17.0':
+    resolution: {integrity: sha512-8q6hlEbqvvhOF7+5yQ4Dmh5bH0cEEb0D97/inqXKhiXt5ZV/85n31x3RsR2EEt6hQJK3oP0o7R74iLd1B0ZZhA==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1483,8 +1483,8 @@ packages:
   better-sqlite3@11.1.2:
     resolution: {integrity: sha512-gujtFwavWU4MSPT+h9B+4pkvZdyOUkH54zgLdIrMmmmd4ZqiBIrRNBzNzYVFO417xo882uP5HBu4GjOfaSrIQw==}
 
-  better-sqlite3@9.5.0:
-    resolution: {integrity: sha512-01qVcM4gPNwE+PX7ARNiHINwzVuD6nx0gdldaAAcu+MrzyIAukQ31ZDKEpzRO/CNA9sHpxoTZ8rdjoyAin4dyg==}
+  better-sqlite3@11.3.0:
+    resolution: {integrity: sha512-iHt9j8NPYF3oKCNOO5ZI4JwThjt3Z6J6XrcwG85VNMVzv1ByqrHWv5VILEbCMFWDsoHhXvQ7oC8vgRXFAKgl9w==}
 
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
@@ -4577,53 +4577,53 @@ snapshots:
       string-argv: 0.3.2
       type-detect: 4.1.0
 
-  '@mtcute/core@0.16.3':
+  '@mtcute/core@0.17.1':
     dependencies:
-      '@mtcute/file-id': 0.16.0
-      '@mtcute/tl': 185.0.0
-      '@mtcute/tl-runtime': 0.16.0
+      '@mtcute/file-id': 0.17.0
+      '@mtcute/tl': 189.0.0
+      '@mtcute/tl-runtime': 0.17.0
       '@types/events': 3.0.0
       events: 3.2.0
       long: 5.2.3
 
-  '@mtcute/dispatcher@0.16.0':
+  '@mtcute/dispatcher@0.17.2':
     dependencies:
-      '@mtcute/core': 0.16.3
+      '@mtcute/core': 0.17.1
       events: 3.2.0
 
-  '@mtcute/file-id@0.16.0':
+  '@mtcute/file-id@0.17.0':
     dependencies:
-      '@mtcute/tl-runtime': 0.16.0
+      '@mtcute/tl-runtime': 0.17.0
       long: 5.2.3
 
-  '@mtcute/html-parser@0.16.0':
+  '@mtcute/html-parser@0.17.1':
     dependencies:
-      '@mtcute/core': 0.16.3
+      '@mtcute/core': 0.17.1
       htmlparser2: 6.1.0
       long: 5.2.3
 
-  '@mtcute/markdown-parser@0.16.3':
+  '@mtcute/markdown-parser@0.17.0':
     dependencies:
-      '@mtcute/core': 0.16.3
+      '@mtcute/core': 0.17.1
       long: 5.2.3
 
-  '@mtcute/node@0.16.3':
+  '@mtcute/node@0.17.0':
     dependencies:
-      '@mtcute/core': 0.16.3
-      '@mtcute/html-parser': 0.16.0
-      '@mtcute/markdown-parser': 0.16.3
-      '@mtcute/wasm': 0.16.0
-      better-sqlite3: 9.5.0
+      '@mtcute/core': 0.17.1
+      '@mtcute/html-parser': 0.17.1
+      '@mtcute/markdown-parser': 0.17.0
+      '@mtcute/wasm': 0.17.0
+      better-sqlite3: 11.3.0
 
-  '@mtcute/tl-runtime@0.16.0':
-    dependencies:
-      long: 5.2.3
-
-  '@mtcute/tl@185.0.0':
+  '@mtcute/tl-runtime@0.17.0':
     dependencies:
       long: 5.2.3
 
-  '@mtcute/wasm@0.16.0': {}
+  '@mtcute/tl@189.0.0':
+    dependencies:
+      long: 5.2.3
+
+  '@mtcute/wasm@0.17.0': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -5253,7 +5253,7 @@ snapshots:
       bindings: 1.5.0
       prebuild-install: 7.1.2
 
-  better-sqlite3@9.5.0:
+  better-sqlite3@11.3.0:
     dependencies:
       bindings: 1.5.0
       prebuild-install: 7.1.2
