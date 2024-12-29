@@ -1,6 +1,7 @@
 ---
 import DefaultLayout from '~/layouts/DefaultLayout/DefaultLayout.astro'
 import { umamiLogThisVisit } from '~/backend/service/umami'
+import moneyImg from '~/assets/money.jpg'
 
 import { PageDonate as PageDonateSolid, PaymentMethods } from './PageDonate'
 import { fetchDonatePageData } from './data'
@@ -10,7 +11,13 @@ umamiLogThisVisit(Astro.request, '/donate')
 const data = await fetchDonatePageData(Astro.request)
 ---
 
-<DefaultLayout>
+<DefaultLayout
+    og={{
+        title: 'teidesu > donate.txt',
+        description: 'i would be extremely pleased if you sent me some money ❤️',
+        image: moneyImg.src,
+    }}
+>
     <PageDonateSolid {data}>
         <PaymentMethods {data} slot="methods" client:idle />
     </PageDonateSolid>
