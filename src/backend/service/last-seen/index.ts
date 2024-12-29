@@ -47,7 +47,7 @@ export async function fetchLastSeen() {
                 sourceLink: 'https://bsky.app/profile/did:web:tei.su',
                 time: new Date(bskyData.record.createdAt).getTime(),
                 text: bskyData.record.text.slice(0, 40) || '[no text]',
-                link: `https://bsky.app/profile/did:web:tei.su/post/${postId[0]}`,
+                link: `https://bsky.app/profile/did:web:tei.su/post/${postId[1]}`,
             })
         }
     }
