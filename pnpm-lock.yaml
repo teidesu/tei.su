@@ -18,11 +18,11 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0(solid-js@1.8.19)(vite@5.3.5(@types/node@22.0.2)(sugarss@4.0.1(postcss@8.4.40)))
       '@fuman/fetch':
-        specifier: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@781fbba
-        version: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@781fbba(zod@3.23.8)
+        specifier: 0.0.7
+        version: 0.0.7(zod@3.23.8)
       '@fuman/utils':
-        specifier: https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba
-        version: https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba
+        specifier: 0.0.4
+        version: 0.0.4
       '@mtcute/dispatcher':
         specifier: ^0.17.0
         version: 0.17.2
@@ -825,15 +825,17 @@ packages:
     resolution: {integrity: sha512-BsWiH1yFGjXXS2yvrf5LyuoSIIbPrGUWob917o+BTKuZ7qJdxX8aJLRxs1fS9n6r7vESrq1OUqb68dANcFXuQQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@fuman/fetch@https://pkg.pr.new/teidesu/fuman/@fuman/fetch@781fbba':
-    resolution: {tarball: https://pkg.pr.new/teidesu/fuman/@fuman/fetch@781fbba}
-    version: 0.0.1
+  '@fuman/fetch@0.0.7':
+    resolution: {integrity: sha512-yzyQI9ssqBrx04zKlfZwRHvJ9sw44RvfForjhaMhy7yA9jtghgVAjceeLTvF5xWEMgvIlIMfZRmSzEtCgGlfcg==}
     peerDependencies:
+      '@badrap/valita': '>=0.4.0'
       tough-cookie: ^5.0.0 || ^4.0.0
       valibot: ^0.42.0
       yup: ^1.0.0
       zod: ^3.0.0
     peerDependenciesMeta:
+      '@badrap/valita':
+        optional: true
       tough-cookie:
         optional: true
       valibot:
@@ -843,9 +845,8 @@ packages:
       zod:
         optional: true
 
-  '@fuman/utils@https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba':
-    resolution: {tarball: https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba}
-    version: 0.0.1
+  '@fuman/utils@0.0.4':
+    resolution: {integrity: sha512-YBZIlGDbM8s9G85pWFZJ9wQrDY4511XLHZ06/uxZfXBY0eSStwje8JFNmRMNF0SjRk4D3iRmPl9wirHKTkg89w==}
 
   '@humanwhocodes/module-importer@1.0.1':
     resolution: {integrity: sha512-bxveV4V8v5Yb4ncFTT3rPSgZBOpCkjfK0y4oVVVJwIuDVBRMDXrPyXRL988i5ap9m9bnyEEjWfm5WkBmtffLfA==}
@@ -4466,13 +4467,13 @@ snapshots:
 
   '@eslint/object-schema@2.1.4': {}
 
-  '@fuman/fetch@https://pkg.pr.new/teidesu/fuman/@fuman/fetch@781fbba(zod@3.23.8)':
+  '@fuman/fetch@0.0.7(zod@3.23.8)':
     dependencies:
-      '@fuman/utils': https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba
+      '@fuman/utils': 0.0.4
     optionalDependencies:
       zod: 3.23.8
 
-  '@fuman/utils@https://pkg.pr.new/teidesu/fuman/@fuman/utils@781fbba': {}
+  '@fuman/utils@0.0.4': {}
 
   '@humanwhocodes/module-importer@1.0.1': {}
 
